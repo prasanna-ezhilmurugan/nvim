@@ -17,7 +17,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config =  function()
       require("mason-lspconfig").setup({
-        ensure_installed = {"lua_ls", "tsserver"}
+        ensure_installed = {"lua_ls", "tsserver", "pyright"}
       })
     end
   },
@@ -27,14 +27,14 @@ return {
       local lspconfig = require("lspconfig")
       --settings up language server
       lspconfig.lua_ls.setup({})
-      lspconfig.pyright.setup {}
-      lspconfig.tsserver.setup {}
-      lspconfig.rust_analyzer.setup {
+      lspconfig.pyright.setup({})
+      lspconfig.tsserver.setup({})
+      lspconfig.rust_analyzer.setup({
         -- Server-specific settings. See `:help lspconfig-setup`
         settings = {
           ['rust-analyzer'] = {},
         },
-      }
+      })
       -- Global mappings.
       -- See `:help vim.diagnostic.*` for documentation on any of the below functions
       vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
