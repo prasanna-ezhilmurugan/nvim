@@ -13,22 +13,28 @@ return {
       })
     end
   },
+  --bridges the gap between mason and nvim-lspconfig
   {
     "williamboman/mason-lspconfig.nvim",
-    config =  function()
+    config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = {"lua_ls", "tsserver", "pyright"}
+        ensure_installed = { "lua_ls", "tsserver", "pyright", "clangd" }
       })
     end
   },
+  -- connection of actual lsp with the language server
   {
     "neovim/nvim-lspconfig",
     config = function() --pasted from nvim-lspconfig for recommended configrations
       local lspconfig = require("lspconfig")
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
       --settings up language server
-      lspconfig.lua_ls.setup({})
+      lspconfig.lua_ls.setup({
+        capabilities = capabilities,
+      })
       lspconfig.pyright.setup({})
       lspconfig.tsserver.setup({})
+      lspconfig.clangd.setup({})
       lspconfig.rust_analyzer.setup({
         -- Server-specific settings. See `:help lspconfig-setup`
         settings = {
@@ -37,10 +43,10 @@ return {
       })
       -- Global mappings.
       -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-      vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+      vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
       vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-      vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+      vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer
@@ -67,7 +73,7 @@ return {
           vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
           vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
           vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-          vim.keymap.set('n', '<space>f', function()
+          vim.keymap.set('n', '<leader>f', function()
             vim.lsp.buf.format { async = true }
           end, opts)
         end,
