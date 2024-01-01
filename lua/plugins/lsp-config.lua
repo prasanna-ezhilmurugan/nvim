@@ -35,8 +35,12 @@ return {
       lspconfig.pyright.setup({
         capabilities = capabilities
       })
-      lspconfig.tsserver.setup({})
-      lspconfig.clangd.setup({})
+      lspconfig.tsserver.setup({
+        capabilities = capabilities
+      })
+      lspconfig.clangd.setup({
+        capabilities = capabilities
+      })
       lspconfig.rust_analyzer.setup({
         -- Server-specific settings. See `:help lspconfig-setup`
         settings = {
