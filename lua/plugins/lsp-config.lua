@@ -30,9 +30,11 @@ return {
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       --settings up language server
       lspconfig.lua_ls.setup({
-        capabilities = capabilities,
+        capabilities = capabilities
       })
-      lspconfig.pyright.setup({})
+      lspconfig.pyright.setup({
+        capabilities = capabilities
+      })
       lspconfig.tsserver.setup({})
       lspconfig.clangd.setup({})
       lspconfig.rust_analyzer.setup({
