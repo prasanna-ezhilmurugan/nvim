@@ -12,3 +12,4 @@ opt.smartindent = true    --inserts indent automatically
 opt.spelllang = { "en" }
 opt.softtabstop = 2
 opt.shiftwidth = 2
+opt.termguicolors = true
